@@ -1,44 +1,77 @@
 
+let playerScore = 0
+let computerScore = 0
+let roundWinner = ''
+const rockButton = document.getElementById('rock')
+const paperButton = document.getElementById('paper')
+const scissorsButton = document.getElementById('scissors')
+const result = document.querySelector('.ressult')
+const playerScoreUi = document.querySelector('.playerScore')
+const compScoreUi = document.querySelector('.compScore')
 
 
-computerPlay = function () {
 
-    computerMoveInt = Math.floor(Math.random() * 3);
-    if (computerMoveInt === 0) {
-        computerMoveString = 'Rock';
-    } else if (computerMoveInt === 1) {
-        computerMoveString = 'Paper';
-    } else {
-        computerMoveString = 'Scissors';
+rockButton.addEventListener('click', () => {
+    playRound('rock');
+})
+paperButton.addEventListener('click', () => {
+    playRound('paper');
+})
+scissorsButton.addEventListener('click', () => {
+    playRound('scissors');
+})
+
+getRandomChoice = () => {
+    randomInt = Math.floor(Math.random() * 3);
+    switch (randomInt) {
+        case 0:
+            return 'rock'
+        case 1:
+            return 'scissors'
+        case 2:
+            return 'paper'
     }
-    return computerMoveString
 }
 
-round = function (playerSelection, computerSelection) {
-    computerSelection = computerPlay();
-    playerSelection = prompt('Pick your weapon;', 'Rock/Paper/Scissors');
-
-    if (computerSelection === 'Rock' && playerSelection == 'Paper' ){
-        roundResult = 'You win, Paper beats Rock';
-    } else if (computerSelection === 'Paper' && playerSelection == 'Paper' ){
-        roundResult = 'Draw';
-    } else if (computerSelection === 'Scissors' && playerSelection == 'Paper' ){
-        roundResult = 'You Lose, Scissors beats Paper'
-    } else if (computerSelection === 'Scissors' && playerSelection == 'Scissors' ){
-        roundResult = 'Draw';
-    }  else if (computerSelection === 'Paper' && playerSelection == 'Scissors' ){
-        roundResult = 'You win, Scissors beats Paper'
-    } else if (computerSelection === 'Rock' && playerSelection == 'Scissors' ){
-        roundResult = 'You lose, Rock beats Scissors';
-    } else if (computerSelection === 'Rock' && playerSelection == 'Rock' ){
-        roundResult = 'Draw';
-    } else if (computerSelection === 'Paper' && playerSelection == 'Rock' ){
-        roundResult = 'Draw';
-    } else if (computerSelection === 'Scissors' && playerSelection == 'Rock' ){
-        roundResult = 'Draw';
+const computerSelection = getRandomChoice()
+playRound = (playerSelection, computerSelection) => {
+    computerSelection = getRandomChoice()
+    if (playerSelection === computerSelection) {
+        roundWinner = 'draw'
     }
-    return roundResult;
+    if (
+        (playerSelection === 'rock' && computerSelection === 'scissors') ||
+        (playerSelection === 'scissors' && computerSelection === 'paper') ||
+        (playerSelection === 'paper' && computerSelection === 'rock')
+    ) {
+        playerScore++
+        roundWinner = 'player'
+    }
+    if (
+        (computerSelection === 'rock' && playerSelection === 'scissors') ||
+        (computerSelection === 'scissors' && playerSelection === 'paper') ||
+        (computerSelection === 'paper' && playerSelection === 'rock')
+    ) {
+        computerScore++
+        roundWinner = 'computer'
+    }
+    return updateScoreMessage(roundWinner,computerSelection,playerSelection,playerScore,computerScore);
 }
 
-console.log(round())
+const updateScoreMessage = (winner,computerSelection,playerSelection, playerScore,computerScore) => {
+    if (winner == 'player') {
+        result.textContent = `${winner} win: ${playerSelection} beats ${computerSelection}`
+        playerScoreUi.textContent =`Player score:${playerScore}`
 
+    } else if (winner == 'computer') {
+        result.textContent = `${winner} win: ${computerSelection} beats ${playerSelection}`
+        compScoreUi.textContent =`Computer score:${computerScore}`
+
+    } else if (winner == 'draw') {
+        result.textContent = `${winner} ${computerSelection} and ${playerSelection}`
+    }
+
+
+}
+
+console.log(playRound('ROCK'))
