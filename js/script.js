@@ -32,7 +32,7 @@ getRandomChoice = () => {
             return 'paper'
     }
 }
-
+let ffff = 1;
 const computerSelection = getRandomChoice()
 playRound = (playerSelection, computerSelection) => {
     computerSelection = getRandomChoice()

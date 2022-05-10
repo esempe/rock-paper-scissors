@@ -2,4 +2,4 @@
 
 
 Learning project for The Odin Project course.
-GitHubPages: 
+GitHubPages: https://esempe.github.io/rock-paper-scissors/
