@@ -1,0 +1,31 @@
+.globalContainer {
+
+    width: 800px;
+    margin: 0 auto;
+}
+
+.topButton {
+    margin-top: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.bottomButtons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 105px;
+}
+
+button {
+    width: 150px;
+    height: 100px;
+    font-size: 22px;
+}
+
+.ressult {
+    margin-top: 100px;
+    font-size: 22px;
+    text-align: center;
+}
